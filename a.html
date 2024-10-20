@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Checkbox Dinamis</title>
+    <style>
+        .checkbox-container {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Pilih Checkbox</h1>
+<div id="checkboxes"></div>
+<button id="showSelection">Tampilkan Pilihan</button>
+
+<script>
+    // Daftar nama checkbox
+    const checkboxNames = ['Checkbox 1', 'Checkbox 2', 'Checkbox 3', 'Checkbox 4'];
+
+    // Mendapatkan elemen div untuk menampung checkbox
+    const checkboxesDiv = document.getElementById('checkboxes');
+
+    // Membuat checkbox secara dinamis
+    checkboxNames.forEach((name, index) => {
+        // Membuat elemen div untuk setiap checkbox
+        const checkboxContainer = document.createElement('div');
+        checkboxContainer.className = 'checkbox-container';
+
+        // Membuat elemen input checkbox
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = 'checkbox' + (index + 1);
+
+        // Membuat elemen label untuk checkbox
+        const label = document.createElement('label');
+        label.htmlFor = checkbox.id;
+        label.textContent = name;
+
+        // Menambahkan input dan label ke dalam div
+        checkboxContainer.appendChild(checkbox);
+        checkboxContainer.appendChild(label);
+
+        // Menambahkan div checkbox ke dalam elemen checkboxes
+        checkboxesDiv.appendChild(checkboxContainer);
+    });
+
+    // Menampilkan pilihan yang dipilih ketika tombol diklik
+    document.getElementById('showSelection').addEventListener('click', () => {
+        const selectedCheckboxes = [];
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                selectedCheckboxes.push(checkbox.nextElementSibling.textContent); // Mendapatkan teks label
+            }
+        });
+
+        alert("Checkbox yang dipilih: " + selectedCheckboxes.join(', '));
+    });
+</script>
+
+</body>
+</html>
